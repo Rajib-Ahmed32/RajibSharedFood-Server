@@ -13,12 +13,14 @@ app.use(cors());
 app.use(express.json());
 const foodRoutes = require("./routes/foodRoutes");
 const authRoutes = require("./routes/authRoutes");
+const availableFoodsRoutes = require("./routes/availableFoodRoutes");
 
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
 app.use("/api/foods", foodRoutes);
+app.use("/api/available-foods", availableFoodsRoutes);
 app.use("/api/auth", authRoutes);
 
 mongoose
