@@ -65,8 +65,37 @@ const getSingleFood = async (req, res) => {
   }
 };
 
+const requestFood = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { foodStatus, additionalNotes, requesterEmail, requestDate } =
+      req.body;
+
+    const updatedFood = await Food.findByIdAndUpdate(
+      id,
+      {
+        foodStatus,
+        additionalNotes,
+        requesterEmail,
+        requestDate,
+      },
+      { new: true }
+    );
+
+    if (!updatedFood) {
+      return res.status(404).json({ message: "Food not found" });
+    }
+
+    res.status(200).json(updatedFood);
+  } catch (error) {
+    console.error("Error updating food status:", error.message);
+    res.status(500).json({ message: "Server error while updating food" });
+  }
+};
+
 module.exports = {
   addFood,
   availableFoods,
   getSingleFood,
+  requestFood,
 };
