@@ -43,11 +43,30 @@ const availableFoods = async (req, res) => {
     res.status(200).json(foods);
   } catch (error) {
     console.error("Error fetching available foods:", error);
-    res.status(500).json({ message: "Server error fetching available foods" });
+    res
+      .status(500)
+      .json({ message: "Server error for fetching available foods" });
+  }
+};
+
+const getSingleFood = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const food = await Food.findById(id);
+
+    if (!food) {
+      return res.status(404).json({ message: "Food not found" });
+    }
+
+    res.json(food);
+  } catch (error) {
+    console.error("Error fetching food by ID:", error.message);
+    res.status(500).json({ message: "Server error while fetching food" });
   }
 };
 
 module.exports = {
   addFood,
   availableFoods,
+  getSingleFood,
 };

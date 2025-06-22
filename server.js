@@ -14,6 +14,7 @@ app.use(express.json());
 const foodRoutes = require("./routes/foodRoutes");
 const authRoutes = require("./routes/authRoutes");
 const availableFoodsRoutes = require("./routes/availableFoodRoutes");
+const singleFoodRoutes = require("./routes/singleFoodRoutes");
 
 app.get("/", (req, res) => {
   res.send("Server is running");
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 app.use("/api/foods", foodRoutes);
 app.use("/api/available-foods", availableFoodsRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/foods", singleFoodRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI, {
