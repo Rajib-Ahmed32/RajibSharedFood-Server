@@ -13,7 +13,6 @@ const foodSchema = new mongoose.Schema(
     donorImage: { type: String },
     foodStatus: { type: String, default: "available" },
     requesterEmail: { type: String },
-    requesterEmail: { type: String },
     requestDate: { type: Date },
   },
   { timestamps: true }
