@@ -68,8 +68,9 @@ const getSingleFood = async (req, res) => {
 const requestFood = async (req, res) => {
   try {
     const { id } = req.params;
-    const { foodStatus, additionalNotes, requesterEmail, requestDate } =
-      req.body;
+    const { foodStatus, additionalNotes, requestDate } = req.body;
+
+    const requesterEmail = req.user.email;
 
     const updatedFood = await Food.findByIdAndUpdate(
       id,
@@ -93,9 +94,24 @@ const requestFood = async (req, res) => {
   }
 };
 
+const myFoodRequest = async (req, res) => {
+  try {
+    const userEmail = req.user.email;
+    console.log("Authenticated user email:", userEmail);
+    const requests = await Food.find({ requesterEmail: userEmail });
+
+    res.status(200).json(requests);
+  } catch (error) {
+    console.error("Error fetching user food requests:", error);
+    res
+      .status(500)
+      .json({ message: "Server error fetching your food requests" });
+  }
+};
 module.exports = {
   addFood,
   availableFoods,
   getSingleFood,
   requestFood,
+  myFoodRequest,
 };

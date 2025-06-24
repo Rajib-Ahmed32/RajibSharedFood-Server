@@ -12,6 +12,9 @@ const foodSchema = new mongoose.Schema(
     donorEmail: { type: String, required: true },
     donorImage: { type: String },
     foodStatus: { type: String, default: "available" },
+    requesterEmail: { type: String },
+    requesterEmail: { type: String },
+    requestDate: { type: Date },
   },
   { timestamps: true }
 );
