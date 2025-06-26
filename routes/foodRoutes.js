@@ -5,6 +5,7 @@ const {
   requestFood,
   myFoodRequest,
   getSingleFood,
+  getFeaturedFoods,
 } = require("../controllers/foodController");
 const {
   myDonatedFoods,
@@ -14,6 +15,7 @@ const {
 const verifyJwt = require("../middleware/authMiddleware");
 
 router.post("/", verifyJwt, addFood);
+router.get("/featured", getFeaturedFoods);
 router.patch("/request/:id", verifyJwt, requestFood);
 router.get("/request/me", verifyJwt, myFoodRequest);
 router.get("/mine", verifyJwt, myDonatedFoods);

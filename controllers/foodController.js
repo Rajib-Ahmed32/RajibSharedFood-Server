@@ -108,10 +108,24 @@ const myFoodRequest = async (req, res) => {
       .json({ message: "Server error fetching your food requests" });
   }
 };
+
+const getFeaturedFoods = async (req, res) => {
+  try {
+    const featuredFoods = await Food.find({ foodStatus: "available" })
+      .sort({ foodQuantity: -1 })
+      .limit(6);
+    res.status(200).json(featuredFoods);
+  } catch (error) {
+    console.error("Error fetching featured foods:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 module.exports = {
   addFood,
   availableFoods,
   getSingleFood,
   requestFood,
   myFoodRequest,
+  getFeaturedFoods,
 };
